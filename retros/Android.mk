@@ -21,7 +21,7 @@ ifneq ($(filter crosshatch blueline,$(TARGET_DEVICE)),)
 include $(CLEAR_VARS)
 LOCAL_MODULE := termux
 LOCAL_MODULE_OWNER := retropilot
-LOCAL_SRC_FILES := retros/priv-app/termux/termux-app_v0.118.0+github-debug_arm64-v8a.apk
+LOCAL_SRC_FILES := priv-app/termux/termux-app_v0.118.0+github-debug_arm64-v8a.apk
 LOCAL_CERTIFICATE := platform
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := APPS
