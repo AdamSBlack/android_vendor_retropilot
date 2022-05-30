@@ -12,13 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# need to modify this so it works on all devices 
 
 LOCAL_PATH := $(call my-dir)
 
 include $(call all-makefiles-under,$(LOCAL_PATH))
 
-ifneq ($(filter crosshatch blueline,$(TARGET_DEVICE)),)
+
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := termux
@@ -31,6 +30,3 @@ LOCAL_DEX_PREOPT := false
 LOCAL_MODULE_SUFFIX := .apk
 LOCAL_PRIVILEGED_MODULE := true
 include $(BUILD_PREBUILT)
-
-
-endif
