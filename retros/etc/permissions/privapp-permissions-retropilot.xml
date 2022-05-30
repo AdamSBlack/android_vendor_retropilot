@@ -16,7 +16,7 @@
   -->
 
 <permissions>
-    <privapp-permissions package="ccom.termux">
+    <privapp-permissions package="com.termux">
         <permission name="android.permission.ACCESS_NETWORK_STATE"/>
         <permission name="android.permission.INTERNET"/>
         <permission name="android.permission.WRITE_EXTERNAL_STORAGE"/>
@@ -32,3 +32,4 @@
         <permission name="android.permission.PACKAGE_USAGE_STATS"/>
     </privapp-permissions>
 </permissions>
+
