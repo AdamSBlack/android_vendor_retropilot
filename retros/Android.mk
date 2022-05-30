@@ -17,8 +17,6 @@ LOCAL_PATH := $(call my-dir)
 
 include $(call all-makefiles-under,$(LOCAL_PATH))
 
-
-
 include $(CLEAR_VARS)
 LOCAL_MODULE := termux
 LOCAL_MODULE_OWNER := retropilot
@@ -29,4 +27,11 @@ LOCAL_MODULE_CLASS := APPS
 LOCAL_DEX_PREOPT := false
 LOCAL_MODULE_SUFFIX := .apk
 LOCAL_PRIVILEGED_MODULE := true
+include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := privapp-permissions-test.xml
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_PATH := $(TARGET_OUT_ETC)/permissions
+LOCAL_SRC_FILES:= etc/permissions/privapp-permissions-retropilot.xml
 include $(BUILD_PREBUILT)
