@@ -16,6 +16,8 @@
 
 LOCAL_PATH := $(call my-dir)
 
+include $(call all-makefiles-under,$(LOCAL_PATH))
+
 ifneq ($(filter crosshatch blueline,$(TARGET_DEVICE)),)
 
 include $(CLEAR_VARS)
@@ -30,9 +32,5 @@ LOCAL_MODULE_SUFFIX := .apk
 LOCAL_PRIVILEGED_MODULE := true
 include $(BUILD_PREBUILT)
 
-include $(CLEAR_VARS)
-# hack until retros-vendor.mk works
-$(shell cp $(LOCAL_PATH)/etc/permissions/* `pwd`/$(TARGET_OUT)/etc/permissions)
-include $(BUILD_PREBUILT)
 
 endif
