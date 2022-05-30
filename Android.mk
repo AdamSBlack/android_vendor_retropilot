@@ -16,6 +16,10 @@
 
 LOCAL_PATH := $(call my-dir)
 
+# flapping
+subdir_makefiles=$(call first-makefiles-under,$(LOCAL_PATH))
+  $(foreach mk,$(subdir_makefiles),$(info including $(mk) ...)$(eval include $(mk)))
+
 ifneq ($(filter crosshatch blueline,$(TARGET_DEVICE)),)
 
 include $(CLEAR_VARS)
