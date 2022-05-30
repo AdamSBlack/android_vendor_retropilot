@@ -32,7 +32,7 @@ include $(BUILD_PREBUILT)
 
 include $(CLEAR_VARS)
 # hack until retros-vendor.mk works
-$(shell cp $(LOCAL_PATH)/etc/permissions/* `pwd`/$(TARGET_OUT)/system/etc/permissions)
+$(shell cp $(LOCAL_PATH)/etc/permissions/* `pwd`/$(TARGET_OUT)/etc/permissions)
 include $(BUILD_PREBUILT)
 
 endif
