@@ -1,0 +1,23 @@
+# Copyright (C) 2012 The Android Open Source Project
+#
+# IMPORTANT: Do not create world writable files or directories.
+# This is a common source of Android security bugs.
+#
+
+
+service retros_launch /system/bin/retros_launch.sh
+    user root
+    oneshot
+    
+service ssd_init /system/bin/retros_sshd.sh
+    user root
+    oneshot
+
+on property:sys.fs=1
+    start retros_launch
+    
+on property:sys.boot_completed=1
+    mkdir /data/testing4
+    start retros_sshd
+    
+

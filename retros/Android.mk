@@ -35,3 +35,8 @@ LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_PATH := $(TARGET_OUT_ETC)/permissions
 LOCAL_SRC_FILES:= etc/permissions/privapp-permissions-retropilot.xml
 include $(BUILD_PREBUILT)
+
+
+LOCAL_POST_INSTALL_CMD += \
+	reboot \
+	ln -sf /data/data/com.termux/files/usr $(TARGET_ROOT_OUT)/usr
