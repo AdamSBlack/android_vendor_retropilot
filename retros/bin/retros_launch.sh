@@ -25,7 +25,7 @@ fi
 # it will uninstall the userspace and reinstall, this isn't
 # a great way to do it, but for now good enough.
 
-if [ ! -d "/data/data/com.termux/reinstall" ] 
+if [ -d "/data/data/com.termux/reinstall" ] 
 then
     echo "RetrOS - Userspace reinstall requested"
     rm -rf /data/data/com.termux/files
