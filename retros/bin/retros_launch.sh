@@ -1,10 +1,10 @@
 #!/system/bin/sh
 
-
-
 # Just to abdstract it, need to do error handling
 function copyUserspace() {
- busybox tar -xvf /system/etc/retros/files.tar.xz -C /data/data/com.termux
+ export EXTRACT_UNSAFE_SYMLINKS=1
+ busybox tar -xvf /system/etc/retros/files.tar.xz -C /data/data/com.termux >> /data/userspaceout.txt
+ echo "written" >> /data/userspace.txt
 }
 
 
@@ -38,18 +38,14 @@ fi
 # Ensuring it exists, if not it's created
 # Directory is cleared every boot
 
-if [ ! -d "/data/retros/tmp" ] 
+if [ ! -d "/data/tmp" ] 
 then
-    mkdir -p /data/retros/tmp
+    mkdir -p /data/tmp
 else
-    rm -rf /data/retros/tmp/*
+    rm -rf /data/tmp/*
 fi
 
 #
 #
 #
 
-su -c 'exec /system/bin/retros-elevated.sh'
-
-
-return 0;
