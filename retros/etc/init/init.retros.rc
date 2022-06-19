@@ -22,9 +22,13 @@ service retros_setup /system/bin/retros_launch.sh
     group root
     oneshot
     
-service sshd_init /system/bin/retros_sshd.sh
-    user root
-    oneshot
+
+service sshd /system/bin/retros_sshd.sh
+   class late_start
+   user root
+   group root
+   wait /data/data/com.termux/files/usr
+   oneshot
 
 service retros_userspace /system/bin/retros_userspace.sh
    user root
@@ -41,5 +45,6 @@ on boot
     start su_daemon
 
 on property:sys.boot_completed=1
+    start sshd
     start retros_launch
     start retros_userspace

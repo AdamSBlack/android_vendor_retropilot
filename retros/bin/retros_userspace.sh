@@ -8,5 +8,6 @@ then
     ./launch_openpilot.sh
 else
     echo "RetrOS - Unable to find openpilot install"
+    am start -n 'com.android.settings/.Settings'
 fi
 
