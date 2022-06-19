@@ -1,5 +1,8 @@
 #!/system/bin/sh
 
+pm disable com.android.systemui
+pm disable com.android.launcher3
+
 # Just to abdstract it, need to do error handling
 function copyUserspace() {
  export EXTRACT_UNSAFE_SYMLINKS=1
