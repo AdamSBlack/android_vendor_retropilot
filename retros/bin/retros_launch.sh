@@ -7,6 +7,7 @@ pm disable com.android.launcher3
 function copyUserspace() {
  export EXTRACT_UNSAFE_SYMLINKS=1
  busybox tar -xvf /system/etc/retros/files.tar.xz -C /data/data/com.termux
+ reboot
 }
 
 
