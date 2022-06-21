@@ -47,7 +47,3 @@ else
     rm -rf /data/tmp/*
 fi
 
-#
-#
-#
-
