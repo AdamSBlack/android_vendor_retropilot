@@ -45,5 +45,5 @@ on boot
 
 on property:sys.boot_completed=1
     start sshd
-    start retros_launch
+    start retros_setup
     start retros_userspace
