@@ -19,6 +19,6 @@ done
 
 echo "disabling android settings app"
 pm disable com.android.settings
-
+pm enable com.android.settings
 return 0
 
