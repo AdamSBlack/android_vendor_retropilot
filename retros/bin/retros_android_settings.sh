@@ -11,7 +11,7 @@ while true
 do
    sleep 0.5
    
-   if ! dumpsys SurfaceFlinger --list | grep -F 'com.android.settings.wifi.WifiPickerActivity'); then
+   if ! dumpsys SurfaceFlinger --list | grep -F 'com.android.settings.wifi.WifiPickerActivity'; then
    	echo "Wifi settings closed"
    	break
    fi
