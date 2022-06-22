@@ -1,8 +1,6 @@
 #!/usr/bin/bash
 echo "Launching settings and observing status"
 
-echo "Enable android settings apk"
-pm enable com.android.settings
 echo "firing settings/wifi intent"
 am start -n com.android.settings/.wifi.WifiPickerActivity -a android.net.wifi.PICK_WIFI_NETWORK --activity-single-top --ez extra_prefs_show_button_bar true --es extra_prefs_set_next_text '' 
 
@@ -20,5 +18,3 @@ done
 echo "disabling android settings app"
 pm disable com.android.settings
 pm enable com.android.settings
-return 0
-

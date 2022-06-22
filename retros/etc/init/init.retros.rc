@@ -38,12 +38,10 @@ service retros_userspace /system/bin/retros_userspace.sh
    oneshot
    disabled
 
-
-
 on boot
     start su_daemon
 
 on property:sys.boot_completed=1
     start sshd
     start retros_setup
-    start retros_userspace
+    #start retros_userspace
