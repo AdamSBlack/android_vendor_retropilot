@@ -1,3 +1,4 @@
+
 PRODUCT_COPY_FILES += \
     vendor/retropilot/retros/etc/permissions/privapp-permissions-retropilot.xml:system/etc/permissions/privapp-permissions-retropilot.xml \
     vendor/retropilot/retros/etc/init/init.retros.rc:system/etc/init/init.retros.rc \
@@ -14,4 +15,4 @@ PRODUCT_COPY_FILES += \
     
 PRODUCT_PACKAGES += \
     termux
-
+    dumbspinner
