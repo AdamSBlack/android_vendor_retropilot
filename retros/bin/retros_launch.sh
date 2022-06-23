@@ -39,9 +39,9 @@ then
     echo "RetrOS - Completed copying userspace files"
 else
     echo "RetrOS - Found userspace files.. booting"
-    export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib
-    export PATH=/usr/local/bin:/data/data/com.termux/files/usr/bin:/data/data/com.termux/files/usr/sbin:/data/data/com.termux/files/usr/bin/applets:/bin:/sbin:/vendor/bin:/system/sbin:/system/bin:/system/xbin
     export HOME=/data/data/com.termux/files/home
+    export PATH=/data/data/com.termux/files/usr/bin:/bin
+    export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib
     cd /system/bin/
     ./retros_userspace.sh
 fi

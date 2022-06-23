@@ -2,7 +2,7 @@
 export TERM=xterm-256color
 
 # check if userspace is finished installing, if not then install
-if [ ! -e "/data/data/com.termux/files/retros_complete" ]
+if [ ! -e "/data/data/com.termux/files/retros_setup_complete" ]
 then
   # do not progress until there's an internet connection
   cd /system/bin
@@ -26,6 +26,7 @@ fi
 if [ -d "/data/openpilot/" ]
 then
     cd /data/openpilot
+    export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib:/data/data/com.termux/files/usr/local/lib64
     tmux new-session -d -s retropilot ./launch_openpilot.sh
 else
     echo "RetrOS - Unable to find openpilot install"
