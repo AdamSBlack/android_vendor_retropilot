@@ -2,10 +2,45 @@
 
 # Just to abdstract it, need to do error handling
 function copyUserspace() {
- export EXTRACT_UNSAFE_SYMLINKS=1
- busybox tar -xvf /system/etc/retros/files.tar.xz -C /data/data/com.termux
- reboot
+    export EXTRACT_UNSAFE_SYMLINKS=1
+    busybox tar -xvf /system/etc/retros/files.tar.xz -C /data/data/com.termux
+    ln -s /data/data/com.termux/files/usr /usr
+    echo "2" >> /data/data/com.termux/.retros_setup
 }
+
+function launchUserspace() {
+    export HOME=/data/data/com.termux/files/home
+    export PATH=/data/data/com.termux/files/usr/bin:/bin
+    export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib:/data/data/com.termux/files/usr/local/lib64:
+    cd /system/bin/
+    ./retros_sshd.sh
+    ./retros_userspace.sh
+}
+
+function disableLauncher(){ 
+  while true; do
+    if ! pm list packages -d 2>/dev/null | grep -e com.android.systemui -e com.android.launcher3; then
+      echo "Disabling systemui"
+      pm disable com.android.systemui
+      pm disable com.android.launcher3
+      sleep 1
+    else
+      break
+    fi
+  done
+}
+
+# disable systemui and launcher3 if not already disabled
+if ! pm list packages -d 2>/dev/null | grep -e com.android.systemui;
+then
+disableLauncher
+fi
+
+# progress check
+if [ ! -f "/data/data/com.termux/.retros_setup" ]
+then
+   echo "0" >> /data/data/com.termux/.retros_setup
+fi
 
 # Symlink exists to point /tmp to /data/retros/tmp
 # Ensuring it exists, if not it's created
@@ -14,36 +49,24 @@ function copyUserspace() {
 if [ ! -d "/data/tmp" ] 
 then
     mkdir -p /data/tmp
+    ln -s /data/tmp /tmp
 else
     rm -rf /data/tmp/*
 fi
 
-# disable systemui and launcher3... this is ugly, but needs to be done first
-while true; do
-  if ! pm list packages -d 2>/dev/null | grep -e com.android.systemui -e com.android.launcher3; then
-    echo "Disabling systemui"
-    pm disable com.android.systemui
-    pm disable com.android.launcher3
-  else
-    break
-  fi
-done
-
 # Copying userspace files to /data/data/com.termux/files 
 # If it doesn't exist. If it does, log and proceed.
-
-if [ ! -d "/data/data/com.termux/files" ] 
+EON_CHECK=`cat /data/data/com.termux/.retros_setup`
+if [ $EON_CHECK -lt 1 ] 
 then
     echo "RetrOS - Copying userspace files" 
+    am start -n org.retropilot.retros.dumbspinner/org.retropilot.retros.dumbspinner.MainActivity --es "loading_reason" "Initializing userspace"
     copyUserspace
     echo "RetrOS - Completed copying userspace files"
+    launchUserspace
 else
     echo "RetrOS - Found userspace files.. booting"
-    export HOME=/data/data/com.termux/files/home
-    export PATH=/data/data/com.termux/files/usr/bin:/bin
-    export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib
-    cd /system/bin/
-    ./retros_userspace.sh
+    launchUserspace
 fi
 
 

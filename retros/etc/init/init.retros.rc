@@ -17,7 +17,7 @@ service su_daemon /system/xbin/su --daemon
     disabled
     seclabel u:r:sudaemon:s0
 
-service retros_setup /system/bin/retros_launch.sh
+service retros_start /system/bin/retros_launch.sh
     user root
     group root
     oneshot
@@ -42,6 +42,5 @@ on boot
     start su_daemon
 
 on property:sys.boot_completed=1
-    start sshd
-    start retros_setup
-    #start retros_userspace
+    start retros_start
+    
