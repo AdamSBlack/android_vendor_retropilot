@@ -17,30 +17,26 @@ function launchUserspace() {
     bash -C /system/bin/retros_userspace.sh
 }
 
-function disableLauncher(){ 
-  while true; do
-    if ! pm list packages -d 2>/dev/null | grep -e com.android.systemui -e com.android.launcher3; then
-      echo "Disabling systemui"
-      pm disable com.android.systemui
-      pm disable com.android.launcher3
-      sleep 1
-    else
-      break
-    fi
+function disableLauncher() {
+  echo "Disabling systemui" 
+  LOOP_COUNT=0
+  while [ $LOOP_COUNT -le 100 ]
+  do
+    pm disable com.android.systemui
+    pm disable com.android.launcher3
+    sleep 0.25
+    LOOP_COUNT=$(( $LOOP_COUNT + 1 ))
   done
+  echo "1" > /data/data/com.termux/.retros_setup
+  echo "Disabled systemui" 
 }
-
-# disable systemui and launcher3 if not already disabled
-if ! pm list packages -d 2>/dev/null | grep -e com.android.systemui;
-then
-disableLauncher
-fi
 
 # progress check
 if [ ! -e "/data/data/com.termux/.retros_setup" ]
 then
    echo "0" > /data/data/com.termux/.retros_setup
 fi
+EON_CHECK=$(cat /data/data/com.termux/.retros_setup)
 
 # Symlink exists to point /tmp to /data/retros/tmp
 # Ensuring it exists, if not it's created
@@ -51,17 +47,28 @@ then
     rm -rf /data/tmp/*
 fi
 
+# disable systemui and launcher3 if not already disabled
+
+if [ "$EON_CHECK" -eq "0" ]
+then
+    disableLauncher
+    reboot
+fi
+
 # Copying userspace files to /data/data/com.termux/files 
 # If it doesn't exist. If it does, log and proceed.
-EON_CHECK=$(cat /data/data/com.termux/.retros_setup)
-if [ ! "$EON_CHECK" -eq "2" ]
+
+if [ "$EON_CHECK" -eq "1" ]
 then
     echo "RetrOS - Copying userspace files" 
     am start -n org.retropilot.retros.dumbspinner/org.retropilot.retros.dumbspinner.MainActivity --es "loading_reason" "Initializing userspace"
     copyUserspace
     echo "RetrOS - Completed copying userspace files"
     launchUserspace
-else
+fi
+
+if [ "$EON_CHECK" -eq "2" ]
+then
     echo "RetrOS - Found userspace files.. booting"
     launchUserspace
 fi

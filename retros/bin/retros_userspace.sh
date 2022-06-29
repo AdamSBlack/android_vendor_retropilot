@@ -12,12 +12,12 @@ then
     # do not progress until there's an internet connection
     cd /system/bin
 
-    # while true; do
-    #   if ping -c 1 8.8.8.8; then
-    #     break
-    #   fi
-    #   sleep 1
-    # done
+    while true; do
+      if ping -c 1 8.8.8.8; then
+        break
+      fi
+      sleep 1
+    done
     
     cd /data/data/com.termux/files/home/
     # doing this in tmux so it can be monitored over SSH
