@@ -9,6 +9,10 @@ then
   rm -rf /data/retropilot
 fi
 
+if [ ! -d /data/openpilot ]
+then
+  ln -s /data/retropilot /data/openpilot
+fi
+
 git clone --progress --verbose $1 /data/retropilot --recurse-submodules
-ln -s /data/retropilot /data/openpilot
 echo "4" > /data/data/com.termux/.retros_setup
