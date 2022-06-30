@@ -4,9 +4,6 @@
 function copyUserspace() {
     export EXTRACT_UNSAFE_SYMLINKS=1
     busybox tar -xvf /system/etc/retros/files.tar.xz -C /data/data/com.termux
-    ln -s /data/data/com.termux/files/usr /usr
-    mkdir -p /data/tmp
-    ln -s /data/tmp /tmp
     echo "2" > /data/data/com.termux/.retros_setup
 }
 
@@ -38,15 +35,6 @@ then
 fi
 EON_CHECK=$(cat /data/data/com.termux/.retros_setup)
 
-# Symlink exists to point /tmp to /data/retros/tmp
-# Ensuring it exists, if not it's created
-# Directory is cleared every boot
-
-if [ -d "/data/tmp" ] 
-then
-    rm -rf /data/tmp/*
-fi
-
 # disable systemui and launcher3 if not already disabled
 
 if [ "$EON_CHECK" -eq "0" ]
@@ -61,28 +49,15 @@ fi
 if [ "$EON_CHECK" -eq "1" ]
 then
     echo "RetrOS - Copying userspace files" 
+    sleep 5
     am start -n org.retropilot.retros.dumbspinner/org.retropilot.retros.dumbspinner.MainActivity --es "loading_reason" "Initializing userspace"
     copyUserspace
     echo "RetrOS - Completed copying userspace files"
     launchUserspace
-fi
-
-if [ "$EON_CHECK" -eq "2" ]
-then
-    echo "RetrOS - Found userspace files.. booting"
-    launchUserspace
-fi
-
-
-# If a file is detetcted in /data/data/com.termux/reinstall
-# it will uninstall the userspace and reinstall, this isn't
-# a great way to do it, but for now good enough.
-
-if [ -e "/data/data/com.termux/reinstall" ] 
-then
-    echo "RetrOS - Userspace reinstall requested"
-    rm -rf /data/data/com.termux/files
-    echo "RetrOS - Deleted userspace files"
-    copyUserspace
-    echo "Retros - Completed copying userspace files"
+else
+  if [ "$EON_CHECK" -ge "2" ]
+  then
+      echo "RetrOS - Found userspace files.. booting"
+      launchUserspace
+  fi
 fi

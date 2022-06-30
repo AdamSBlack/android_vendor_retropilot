@@ -15,8 +15,9 @@ then
     then
         echo "SSH KEY NOT FOUND"
         mkdir -p /data/params/d
-        exec /data/data/com.termux/files/usr/bin/ssh-keygen -y -f /data/data/com.termux/files/home/id_rsa > /data/params/d/GithubSshKeys
+        ssh-keygen -y -f /data/data/com.termux/files/home/id_rsa > /data/params/d/GithubSshKeys
     fi
     # run sshd
-    exec /data/data/com.termux/files/usr/bin/sshd -d
+    echo "RUNNING SSHD"
+    sshd -D
 fi

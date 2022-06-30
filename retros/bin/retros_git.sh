@@ -11,3 +11,4 @@ fi
 
 git clone --progress --verbose $1 /data/retropilot --recurse-submodules
 ln -s /data/retropilot /data/openpilot
+echo "4" > /data/data/com.termux/.retros_setup

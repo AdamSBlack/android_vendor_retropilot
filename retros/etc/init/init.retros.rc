@@ -20,27 +20,20 @@ service su_daemon /system/xbin/su --daemon
 service retros_start /system/bin/retros_launch.sh
     user root
     group root
+    stdio_to_kmsg
     oneshot
-    
 
 service sshd /system/bin/retros_sshd.sh
    class late_start
    user root
    group root
-   oneshot
-
-service retros_userspace /system/bin/retros_userspace.sh
-   user root
-   group root
-   setenv LD_LIBRARY_PATH /data/data/com.termux/files/usr/lib
-   setenv PATH /usr/local/bin:/data/data/com.termux/files/usr/bin:/data/data/com.termux/files/usr/sbin:/data/data/com.termux/files/usr/bin/applets:/bin:/sbin:/vendor/bin:/system/sbin:/system/bin:/system/xbin
-   setenv HOME /data/data/com.termux/files/home
-   oneshot
-   disabled
+   stdio_to_kmsg
 
 on boot
     start su_daemon
 
 on property:sys.boot_completed=1
+    rm -rf /data/tmp
+    mkdir /data/tmp
     start retros_start
     start retros_sshd
