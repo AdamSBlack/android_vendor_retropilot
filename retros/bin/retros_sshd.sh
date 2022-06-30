@@ -8,18 +8,15 @@ export PATH=/usr/local/bin:/data/data/com.termux/files/usr/bin:/data/data/com.te
 
 EON_CHECK=$(cat /data/data/com.termux/.retros_setup)
 
-while true; do
-    if [ "$EON_CHECK" -eq "2" ] 
+if [ "$EON_CHECK" -ge "2" ] 
+then
+    # setup ssh
+    if [ ! -e /data/params/d/GithubSshKeys ] 
     then
-        # setup ssh
-        if [ ! -e /data/params/d/GithubSshKeys ] 
-        then
-            echo "SSH KEY NOT FOUND"
-            mkdir -p /data/params/d
-            exec /data/data/com.termux/files/usr/bin/ssh-keygen -y -f /data/data/com.termux/files/home/id_rsa > /data/params/d/GithubSshKeys
-        fi
-        # run sshd
-        exec /data/data/com.termux/files/usr/bin/sshd
-        break
+        echo "SSH KEY NOT FOUND"
+        mkdir -p /data/params/d
+        exec /data/data/com.termux/files/usr/bin/ssh-keygen -y -f /data/data/com.termux/files/home/id_rsa > /data/params/d/GithubSshKeys
     fi
-done
+    # run sshd
+    exec /data/data/com.termux/files/usr/bin/sshd -d
+fi
