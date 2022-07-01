@@ -64,7 +64,7 @@ then
   fi
   
   git clone --verbose $fork_url /data/retropilot --recurse-submodules > /data/retros_git.log 2>&1
-  if [[ $? -eq 1 ]];
+  if [[ $? -eq 0 ]];
     then
       cd /data/openpilot
       tmux new-session -d -s retropilot /usr/bin/bash ./launch_openpilot.sh
