@@ -36,8 +36,41 @@ then
     done
     echo "3" > /data/data/com.termux/.retros_setup
   fi
+  rm /data/data/com.termux/files/.fork_url
   am start -n org.retropilot.retros.dumbspinner/org.retropilot.retros.dumbspinner.fork_select
+  
+  while true; do
+    sleep 1
+    if [ -e "/data/data/com.termux/files/.fork_url" ]
+      then
+        break
+    fi
+  done
+  
+  fork_url="cat /data/data/com.termux/files/.fork_url"
+  
+  am start -n org.retropilot.retros.dumbspinner/org.retropilot.retros.dumbspinner.MainActivity --es "loading_reason" "Getting started...."
+  
+  if [ -d /data/retropilot]
+  then
+    rm -rf /data/retropilot
+  fi
 
+  if [ ! -d /data/openpilot ]
+    then
+      ln -s /data/retropilot /data/openpilot
+  fi
+  
+  git clone --progress --verbose $fork_url /data/retropilot --recurse-submodules > /data/retros_git.log 2>&1
+  if [[ $? -eq 1 ]];
+    then
+      cd /data/openpilot
+      tmux new-session -d -s retropilot /usr/bin/bash ./launch_openpilot.sh
+      am force-stop org.retropilot.retros.dumbspinner
+    else
+      am start -n org.retropilot.retros.dumbspinner/org.retropilot.retros.dumbspinner.MainActivity --es "loading_reason" "Git clone failed, check /data/retros_git.log"
+  fi
+  
 else
   cd /data/openpilot
   tmux new-session -d -s retropilot /usr/bin/bash ./launch_openpilot.sh
