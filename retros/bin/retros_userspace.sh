@@ -56,12 +56,12 @@ then
     rm -rf /data/retropilot
   fi
 
-  if [ ! -d /data/openpilot ]
+  if [ ! -h /data/openpilot ]
     then
       ln -s /data/retropilot /data/openpilot
   fi
   
-  git clone --progress --verbose $fork_url /data/retropilot --recurse-submodules > /data/retros_git.log 2>&1
+  git clone --verbose $fork_url /data/retropilot --recurse-submodules > /data/retros_git.log 2>&1
   if [[ $? -eq 1 ]];
     then
       cd /data/openpilot
