@@ -68,7 +68,8 @@ then
     then
       cd /data/openpilot
       tmux new-session -d -s retropilot /usr/bin/bash ./launch_openpilot.sh
-      am force-stop org.retropilot.retros.dumbspinner
+      pm disable org.retropilot.retros.dumbspinner
+      pm enable org.retropilot.retros.dumbspinner
     else
       am start -n org.retropilot.retros.dumbspinner/org.retropilot.retros.dumbspinner.MainActivity --es "loading_reason" "Git clone failed, check /data/retros_git.log"
   fi
