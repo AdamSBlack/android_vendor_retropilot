@@ -39,6 +39,7 @@ then
   rm /data/data/com.termux/files/.fork_url
   am start -n org.retropilot.retros.dumbspinner/org.retropilot.retros.dumbspinner.fork_select
   
+  # Waiting for .fork_url to exist
   while true; do
     sleep 1
     if [ -e "/data/data/com.termux/files/.fork_url" ]
@@ -47,7 +48,8 @@ then
     fi
   done
   
-  fork_url="cat /data/data/com.termux/files/.fork_url"
+  # This file will contain the desired url to install
+  fork_url=`cat /data/data/com.termux/files/.fork_url`
   
   am start -n org.retropilot.retros.dumbspinner/org.retropilot.retros.dumbspinner.MainActivity --es "loading_reason" "Getting started...."
   
