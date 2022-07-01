@@ -31,10 +31,10 @@ then
       sleep 1
       if [ -e "/data/data/com.termux/files/retros_setup_complete" ]
       then
+        echo "3" >| /data/data/com.termux/.retros_setup
         break
       fi
     done
-    echo "3" > /data/data/com.termux/.retros_setup
   fi
   rm /data/data/com.termux/files/.fork_url
   am start -n org.retropilot.retros.dumbspinner/org.retropilot.retros.dumbspinner.fork_select
