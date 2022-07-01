@@ -51,6 +51,10 @@ then
   # This file will contain the desired url to install
   fork_url=`cat /data/data/com.termux/files/.fork_url`
   
+  # dirty hack
+  pm disable org.retropilot.retros.dumbspinner
+  pm enable org.retropilot.retros.dumbspinner
+  
   am start -n org.retropilot.retros.dumbspinner/org.retropilot.retros.dumbspinner.MainActivity --es "loading_reason" "Getting started...."
   
   if [ -d /data/retropilot]
