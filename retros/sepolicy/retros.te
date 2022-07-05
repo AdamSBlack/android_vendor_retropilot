@@ -1,0 +1,7 @@
+type retros, domain;
+type retros_exec, exec_type, file_type;
+
+init_daemon_domain(retros)
+
+ALLOW retros { read write search open execute_no_trans getattr }
+

@@ -1,0 +1,10 @@
+
+/tmp				u:object_r:retros:s0 # Symlink to /data/tmp
+/EON				u:object_r:retros:s0 # Empty file, easy identifier
+/RETROS				u:object_r:retros:s0 # Empty file, easy identifier
+/usr				u:object_r:retros:s0 # Symlink to /data/data/com.termux/files/usr
+/data/openpilot			u:object_r:retros:s0
+/data/retropilot		u:object_r:retros:s0
+/data/tmp			u:object_r:retros:s0
+/data/data/com.termux		u:object_r:retros:s0
+

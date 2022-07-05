@@ -9,6 +9,8 @@
 # LOCAL_MODULE_SUFFIX := .apk
 # include $(BUILD_PREBUILT)
 
+ $(call inherit-product, vendor/retropilot/retros/sepolicy/sepolicy.mk)
+
 PRODUCT_COPY_FILES += \
     vendor/retropilot/retros/etc/permissions/privapp-permissions-retropilot.xml:system/etc/permissions/privapp-permissions-retropilot.xml \
     vendor/retropilot/retros/etc/init/init.retros.rc:system/etc/init/init.retros.rc \
