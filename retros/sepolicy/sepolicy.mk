@@ -1,5 +1,5 @@
 
 BOARD_VENDOR_SEPOLICY_DIRS += \
-    device/retropilot/sepolicy
+     vendor/retropilot/retros/sepolicy
 endif
 
