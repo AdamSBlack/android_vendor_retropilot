@@ -15,22 +15,27 @@ service su_daemon /system/xbin/su --daemon
     user root
     group root
     disabled
-    seclabel u:r:sudaemon:s0
+    seclabel u:r:retros:s0
 
 service retros_start /system/bin/retros_launch.sh
     user root
     group root
     stdio_to_kmsg
     oneshot
+    seclabel u:r:retros:s0
 
 service sshd /system/bin/retros_sshd.sh
    class late_start
    user root
    group root
    stdio_to_kmsg
+   seclabel u:r:retros:s0
+
 
 on boot
     start su_daemon
+    seclabel u:r:retros:s0
+
 
 on property:sys.boot_completed=1
     rm -rf /data/tmp
