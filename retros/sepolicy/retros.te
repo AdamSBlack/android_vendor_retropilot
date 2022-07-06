@@ -2,5 +2,5 @@ type retros, domain;
 
 init_daemon_domain(retros)
 
-ALLOW retros { read write search open execute_no_trans getattr };
+ALLOW retros { read write search open execute_no_trans getattr }
 
