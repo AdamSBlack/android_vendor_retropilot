@@ -20,20 +20,18 @@ service su_daemon /system/xbin/su --daemon
 service retros_start /system/bin/retros_launch.sh
     user root
     group root
-    stdio_to_kmsg
     oneshot
+    seclabel u:object_r:init:s0
 
-service sshd /system/bin/retros_sshd.sh
-   class late_start
-   user root
-   group root
-   stdio_to_kmsg
+service retros_sshd /system/bin/retros_sshd.sh
+    class late_start
+    user root
+    group root
+    seclabel u:object_r:init:s0
 
 on boot
     start su_daemon
 
 on property:sys.boot_completed=1
-    rm -rf /data/tmp
-    mkdir /data/tmp
     start retros_start
     start retros_sshd

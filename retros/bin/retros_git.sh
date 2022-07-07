@@ -15,4 +15,6 @@ then
 fi
 
 git clone --progress --verbose $1 /data/retropilot --recurse-submodules
+
+rm /data/data/com.termux/.retros_setup
 echo "4" > /data/data/com.termux/.retros_setup

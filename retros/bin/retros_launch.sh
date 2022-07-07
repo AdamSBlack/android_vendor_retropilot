@@ -28,6 +28,13 @@ function disableLauncher() {
   echo "Disabled systemui" 
 }
 
+if [ -d "/data/tmp" ]
+then
+  rm -rf /data/tmp/*  
+else
+  mkdir /data/tmp
+fi
+
 # progress check
 if [ ! -e "/data/data/com.termux/.retros_setup" ]
 then
