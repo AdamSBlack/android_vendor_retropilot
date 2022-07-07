@@ -1,8 +1,14 @@
+<<<<<<< HEAD
 type retros, domain, mlstrustedsubject;
 type retros_data, file_type, data_file_type, core_data_file_type;
+=======
+type retros, domain;
+type retros_exec, exec_type, vendor_file_type, file_type;
+>>>>>>> d03282c54e90d966c07ba4ae28558541d278a246
 
 # typeattribute retros_start coredomain;
 
+<<<<<<< HEAD
 # init_daemon_domain(retros)
 # domain_auto_trans(init, retros_data, retros)
 
@@ -11,3 +17,6 @@ type retros_data, file_type, data_file_type, core_data_file_type;
 
 allow init retros_data:file rw_file_perms;
 allow init retros_data:dir rw_dir_perms;
+=======
+ALLOW retros { read write search open execute_no_trans getattr };
+>>>>>>> d03282c54e90d966c07ba4ae28558541d278a246
